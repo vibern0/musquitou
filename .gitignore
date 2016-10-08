@@ -1,0 +1,9 @@
+
+#bot folder
+bot
+
+#enviornment variable
+.env
+
+#python code files
+*.pyc
