@@ -3,7 +3,6 @@ import time
 from slackclient import SlackClient
 import json
 from dotenv import load_dotenv
-from botfunc import bot_process_message
 load_dotenv(".env")
 
 
@@ -13,6 +12,13 @@ AT_BOT = "<@" + str(BOT_ID) + ">"
 slack_client = SlackClient(SLACK_BOT_TOKEN)
 
 
+def bot_process_message(command):
+    response = 'I cant understand!'
+    if command.startswith('hi'):
+        response = 'hi friend'
+
+    return response
+
 def handle_command(command, channel):
     response = bot_process_message(command)
 
@@ -21,7 +27,7 @@ def handle_command(command, channel):
 
 
 def parse_slack_output(slack_rtm_output):
-    print slack_rtm_output
+    print(slack_rtm_output)
     output_list = slack_rtm_output
 
     if output_list and len(output_list) > 0:
