@@ -1,11 +1,10 @@
 import os
 import time
 from slackclient import SlackClient
-import json
 from botfunc import bot_process_message
 from dotenv import load_dotenv
-load_dotenv(".env")
 
+load_dotenv(".env")
 
 BOT_ID = os.environ.get("BOT_ID")
 BOT_CHANNEL_GENERAL = os.environ.get("BOT_CHANNEL_GENERAL")
@@ -14,6 +13,7 @@ AT_BOT = "<@" + str(BOT_ID) + ">"
 slack_client = SlackClient(SLACK_BOT_TOKEN)
 
 public_channels_list = [BOT_CHANNEL_GENERAL]
+
 
 def handle_command(command, channel):
     response = bot_process_message(command)
@@ -26,24 +26,27 @@ def parse_slack_output(slack_rtm_output):
     print(slack_rtm_output)
     output_list = slack_rtm_output
 
-    if output_list and len(output_list) > 0:
-        for output in output_list:
-            if output and 'text' in output:
+    if len(output_list) < 1:
+        return None, None
 
-                if BOT_ID not in output['user']:
+    for output in output_list:
 
-                    if AT_BOT in output['text']:
-                        return output['text'].split(AT_BOT)[1].strip().lower(), \
-                            output['channel']
+        if 'text' not in output:
+            return None, None
 
-                    else:
-                        for channel in public_channels_list:
-                            if channel not in output['channel']:
-                                return output['text'], output['channel']
+        if BOT_ID in output['user']:
+            return None, None
 
-
+        if AT_BOT in output['text']:
+            return output['text'].split(AT_BOT)[1].strip().lower(), \
+                   output['channel']
+        else:
+            for channel in public_channels_list:
+                if channel not in output['channel']:
+                    return output['text'], output['channel']
 
     return None, None
+
 
 def run_bot():
     if slack_client.rtm_connect():
