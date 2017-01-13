@@ -7,3 +7,6 @@ bot
 
 #python code files
 *.pyc
+
+#idea IDE
+.idea

@@ -1,4 +1,4 @@
-from app.bot import run_bot
+from app import Musquitou
 
 if __name__ == "__main__":
-    run_bot()
+    Musquitou()
