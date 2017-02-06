@@ -8,6 +8,7 @@ This is a bot for [Slack][slack]. This bot can help you in public channels or in
 For now, this bot is made only to help get the weather. In the future we are thinking about add more features.
 
 ### Installation:
+Before anything you need to create a slack channel and create a bot. In this case, he was named `musquitou-bot`<br/>
 First, generate the virtual environment by doing<br/>
 `virtualenv musquitoubot`<br/>
 and activate with<br/>
